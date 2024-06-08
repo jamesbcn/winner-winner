@@ -1,0 +1,203 @@
+<mat-toolbar>
+  <div class="left-buttons">
+    <button mat-button [matMenuTriggerFor]="open">OPEN</button>
+    <button mat-button [matMenuTriggerFor]="threeBet">3-BET</button>
+    <button mat-button [matMenuTriggerFor]="defend">DEFEND</button>
+    <button mat-button [matMenuTriggerFor]="facingFourBet">FACING 4-BET</button>
+  </div>
+  <span class="example-spacer"></span> <!-- This creates space to align title to the right -->
+  <span class="navbar-title">winner winner chicken dinner</span>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+
+
+    <div style="text-align: center; margin: 20px;">
+  
+      <button mat-raised-button (click)="getRandomNumber()">Generate</button>
+      <br><br>
+      @if(number){
+        <h3 style="color: red;">
+          > {{number}}% 
+        </h3>
+      }
+    </div>
+    
+
+
+
+  </mat-drawer>
+  <mat-drawer-content style="text-align: center">
+    <div style="margin-top: 20px;">
+      <img [src]="source" alt="chart">
+    </div>
+    <div style="color: white;">{{action}}</div>
+    @if(url){
+    <a href="{{url}}" target="_blank"><button mat-raised-button>Called</button></a>
+    }
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+
+<!-- OPEN -->
+<span>
+  <mat-menu #open="matMenu">
+    <button mat-menu-item (click)="update('../assets/open/utg.png', 'R2.5-F-F-F-F-C')">UTG</button>
+    <button mat-menu-item (click)="update('../assets/open/hj.png', 'F-R2.5-F-F-F-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/open/co.png', 'F-F-R2.5-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/open/btn.png', 'F-F-F-R2.5-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/open/sb.png', 'F-F-F-F-R3-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/open/bb.png', 'F-F-F-F-C-R3-C')">Big Blind (vs. SB limp)</button>
+  </mat-menu>
+</span>
+
+
+
+
+
+
+<!-- 3-BET -->
+<span>
+
+  <mat-menu #threeBet="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="utg">UTG</button>
+    <button mat-menu-item [matMenuTriggerFor]="hj">MP</button>
+    <button mat-menu-item [matMenuTriggerFor]="co">CO</button>
+    <button mat-menu-item [matMenuTriggerFor]="btn">Button</button>
+    <button mat-menu-item [matMenuTriggerFor]="sb">Small Blind</button>
+  </mat-menu>
+
+  <mat-menu #utg="matMenu">, 
+    <button mat-menu-item (click)="update('../assets/3bet/HJvsUTG.png', 'R2.5-R7.5-F-F-F-F-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/3bet/COvsUTG.png', 'R2.5-F-R7.5-F-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BTNvsUTG.png', 'R2.5-F-F-R7.5-F-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/3bet/SBvsUTG.png', 'R2.5-F-F-F-R11-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsUTG.png', 'R2.5-F-F-F-F-R12-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #hj="matMenu">
+    <button mat-menu-item (click)="update('../assets/3bet/COvsHJ.png', 'F-R2.5-R7.5-F-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BTNvsHJ.png', 'F-R2.5-F-R7.5-F-F-C')">Button</button>
+  <button mat-menu-item (click)="update('../assets/3bet/SBvsHJ.png', 'F-R2.5-F-F-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsHJ.png', 'F-R2.5-F-F-F-R12-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #co="matMenu">
+    <button mat-menu-item (click)="update('../assets/3bet/BTNvsCO.png', 'F-F-R2.5-R7.5-F-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/3bet/SBvsCO.png', 'F-F-R2.5-F-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsCO.png', 'F-F-R2.5-F-F-R13-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #btn="matMenu">
+    <button mat-menu-item (click)="update('../assets/3bet/SBvsBTN.png', 'F-F-F-R2.5-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsBTN.png', 'F-F-F-R2.5-F-R13-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #sb="matMenu">
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsSB.png', 'F-F-F-F-R3-R10-C')">Big Blind</button>
+  </mat-menu>
+</span>
+
+<!-- DEFEND -->
+<span>
+
+  <mat-menu #defend="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="def_utg">UTG</button>
+    <button mat-menu-item [matMenuTriggerFor]="def_hj">MP</button>
+    <button mat-menu-item [matMenuTriggerFor]="def_co">CO</button>
+    <button mat-menu-item [matMenuTriggerFor]="def_btn">Button</button>
+    <button mat-menu-item [matMenuTriggerFor]="def_sb">Small Blind</button>
+    <button mat-menu-item [matMenuTriggerFor]="def_bb">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_utg="matMenu">
+    
+    <button mat-menu-item (click)="update('../assets/defend/UTGdefHJ.png', 'R2.5-R7.5-F-F-F-F-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/defend/UTGdefCO.png', 'R2.5-F-R7.5-F-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/defend/UTGdefBTN.png', 'R2.5-F-F-R7.5-F-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/defend/UTGdefSB.png', 'R2.5-F-F-F-R11-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/defend/UTGdefBB.png', 'R2.5-F-F-F-F-R12-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_hj="matMenu">
+    <button mat-menu-item (click)="update('../assets/defend/HJdefCO.png', 'F-R2.5-R7.5-F-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/defend/HJdefBTN.png', 'F-R2.5-F-R7.5-F-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/defend/HJdefSB.png', 'F-R2.5-F-F-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/defend/HJdefBB.png', 'F-R2.5-F-F-F-R12-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_co="matMenu">
+    <button mat-menu-item (click)="update('../assets/defend/COdefBTN.png', 'F-F-R2.5-R7.5-F-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/defend/COdefSB.png', 'F-F-R2.5-F-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/defend/COdefBB.png','F-F-R2.5-F-F-R13-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_btn="matMenu">
+    <button mat-menu-item (click)="update('../assets/defend/BTNdefSB.png', 'F-F-F-R2.5-R12-F-C')">Small Blind</button>
+    <button mat-menu-item (click)="update('../assets/defend/BTNdefBB.png', 'F-F-F-R2.5-F-R13-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_sb="matMenu">
+    <button mat-menu-item (click)="update('../assets/defend/SBdefBB.png', 'F-F-F-F-R3-R10-C')">Big Blind</button>
+  </mat-menu>
+
+  <mat-menu #def_bb="matMenu">
+    
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsUTG.png', 'R2.5-F-F-F-F-C')">UTG</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsHJ.png', 'F-R2.5-F-F-F-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsCO.png', 'F-F-R2.5-F-F-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsBTN.png', 'F-F-F-R2.5-F-C')">Button</button>
+    <button mat-menu-item (click)="update('../assets/3bet/BBvsSB.png', 'F-F-F-F-R3-C')">Small Blind</button>
+  </mat-menu>
+</span>
+
+
+
+
+<!-- FACING 4-BET -->
+<span>
+
+  <mat-menu #facingFourBet="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="hj4">MP</button>
+    <button mat-menu-item [matMenuTriggerFor]="co4">CO</button>
+    <button mat-menu-item [matMenuTriggerFor]="btn4">Button</button>
+    <button mat-menu-item [matMenuTriggerFor]="sb4">Small Blind</button>
+    <button mat-menu-item [matMenuTriggerFor]="bb4">Big Blind</button>
+  </mat-menu>
+
+
+  <mat-menu #hj4="matMenu">
+    <button mat-menu-item (click)="update('../assets/facing4bet/HJdefUTG.png', 'R2.5-R7.5-F-F-F-F-R20-C')">UTG</button>
+  </mat-menu>
+
+  <mat-menu #co4="matMenu">
+    <button mat-menu-item (click)="update('../assets/facing4bet/COdefUTG.png', 'R2.5-F-R7.5-F-F-F-R20-C')">UTG</button>
+  <button mat-menu-item (click)="update('../assets/facing4bet/COdefHJ.png','F-R2.5-R7.5-F-F-F-R20-C')">MP</button>
+  </mat-menu>
+
+  <mat-menu #btn4="matMenu">
+    <button mat-menu-item (click)="update('../assets/facing4bet/BTNdefUTG.png', 'R2.5-F-F-R7.5-F-F-R20-C')">UTG</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/BTNdefHJ.png', 'F-R2.5-F-R7.5-F-F-R20-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/BTNdefCO.png', 'F-F-R2.5-R7.5-F-F-R20-C')">CO</button>
+  </mat-menu>
+
+  <mat-menu #sb4="matMenu">
+    <button mat-menu-item (click)="update('../assets/facing4bet/SBdefUTG.png', 'R2.5-F-F-F-R11-F-R21-C')">UTG</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/SBdefHJ.png', 'F-R2.5-F-F-R12-F-R22-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/SBdefCO.png', 'F-F-R2.5-F-R12-F-R24-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/SBdefBTN.png', 'F-F-R2.5-F-R12-F-R24-C')">BTN</button>
+  </mat-menu>
+
+  <mat-menu #bb4="matMenu">
+    <button mat-menu-item (click)="update('../assets/facing4bet/BBdefUTG.png', 'R2.5-F-F-F-F-R12-R22-C')">UTG</button>
+  <button mat-menu-item (click)="update('../assets/facing4bet/BBdefHJ.png', 'R2.5-F-F-F-R12-R24-C')">MP</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/BBdefCO.png', 'F-F-R2.5-F-F-R13-R27-C')">CO</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/BBdefBTN.png', 'F-F-F-R2.5-F-R13-R27-C')">BTN</button>
+    <button mat-menu-item (click)="update('../assets/facing4bet/BBdefBTN.png', 'F-F-F-F-R3-R10-R21-C')">SB</button>
+  </mat-menu>
+
+
+</span>
